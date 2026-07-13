@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@plugin "daisyui" {
+  themes: light --default;
+}
+
+@theme inline {
+  --color-navy: #0a1628;
+  --color-navy-light: #1a2942;
+  --color-gold: #d4a853;
+  --color-gold-light: #e4c075;
+  --color-white: #ffffff;
+  --color-gray: #6b7280;
+  --color-gray-light: #e5e7eb;
+
+  --font-heading: var(--font-heading-playfair), serif;
+  --font-body: var(--font-body-dmsans), sans-serif;
+}
+
+body {
+  background: #ffffff;
+  color: #0a1628;
+  font-family: "DM Sans", sans-serif;
+}
+
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Playfair Display", serif;
+  }
+}
+
+[data-theme="light"] {
+  --color-base-100: oklch(1 0 0);
+  --color-base-200: oklch(0.98 0 0);
+  --color-base-300: oklch(0.95 0 0);
+  --color-base-content: oklch(0.21 0.006 285.885);
+  --color-primary: #0a1628;
+  --color-primary-content: #ffffff;
+  --color-secondary: #d4a853;
+  --color-secondary-content: #0a1628;
+  --color-accent: #6b7280;
+  --color-accent-content: #ffffff;
+  --color-neutral: #1a2942;
+  --color-neutral-content: #ffffff;
+  --color-info: oklch(0.74 0.16 232.661);
+  --color-info-content: oklch(0.29 0.066 243.157);
+  --color-success: oklch(0.76 0.177 163.223);
+  --color-success-content: oklch(0.37 0.077 168.94);
+  --color-warning: oklch(0.82 0.189 84.429);
+  --color-warning-content: oklch(0.41 0.112 45.904);
+  --color-error: oklch(0.71 0.194 13.428);
+  --color-error-content: oklch(0.27 0.105 12.094);
+  --radius-selector: 0.5rem;
+  --radius-field: 0.25rem;
+  --radius-box: 0.5rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 1;
+  --noise: 0;
+}
