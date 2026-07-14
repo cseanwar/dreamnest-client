@@ -72,7 +72,7 @@ export default function TestimonialsSection() {
             <button
               key={i}
               onClick={() => setCurrent(i)}
-              className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+              className={`w-2.5 h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
                 i === current ? "bg-gold w-8" : "bg-gray-light hover:bg-gray"
               }`}
               aria-label={`Testimonial ${i + 1}`}
@@ -82,14 +82,14 @@ export default function TestimonialsSection() {
 
         <button
           onClick={() => setCurrent((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1))}
-          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-12 w-10 h-10 rounded-full bg-white border border-gray-light flex items-center justify-center hover:bg-navy hover:text-white hover:border-navy transition-all duration-300 shadow-sm"
+          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-12 w-10 h-10 rounded-full bg-white border border-gray-light flex items-center justify-center hover:bg-navy hover:text-white hover:border-navy transition-all duration-300 shadow-sm cursor-pointer"
           aria-label="Previous"
         >
           <ChevronLeft className="w-5 h-5" />
         </button>
         <button
           onClick={() => setCurrent((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1))}
-          className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-12 w-10 h-10 rounded-full bg-white border border-gray-light flex items-center justify-center hover:bg-navy hover:text-white hover:border-navy transition-all duration-300 shadow-sm"
+          className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-12 w-10 h-10 rounded-full bg-white border border-gray-light flex items-center justify-center hover:bg-navy hover:text-white hover:border-navy transition-all duration-300 shadow-sm cursor-pointer"
           aria-label="Next"
         >
           <ChevronRight className="w-5 h-5" />
