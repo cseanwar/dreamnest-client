@@ -13,7 +13,7 @@ const categories = [
   { value: "villa", label: "Villa" },
   { value: "condo", label: "Condo" },
   { value: "office", label: "Office" },
-  { value: "land", label: "Land" },
+  { value: "vacation", label: "Vacation Rental" },
 ];
 
 export default function AddPropertyPage() {
