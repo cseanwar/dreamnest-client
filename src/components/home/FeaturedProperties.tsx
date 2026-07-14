@@ -28,7 +28,8 @@ export default function FeaturedProperties() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api.get<{ properties: FeaturedProperty[] }>("/api/properties?limit=4")
+    api
+      .get<{ properties: FeaturedProperty[] }>("/api/properties?limit=4")
       .then((res) => setProperties(res.properties))
       .catch(() => setProperties([]))
       .finally(() => setLoading(false));
@@ -58,21 +59,32 @@ export default function FeaturedProperties() {
                     <div className="card bg-white rounded-box border border-gray-light overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 group h-full">
                       <figure className="relative h-52 overflow-hidden">
                         <Image
-                          src={property.images?.[0] || "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80"}
+                          src={
+                            property.images?.[0] ||
+                            "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80"
+                          }
                           alt={property.title}
                           fill
                           className="object-cover transition-transform duration-500 group-hover:scale-110"
                           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
                         />
                         <div className="absolute top-2 right-2">
-                          <Badge variant="gold">{badgeLabel}</Badge>
+                          <Badge
+                            variant={badgeLabel === "For Sale" ? "gold" : "navy"}
+                          >
+                            {badgeLabel}
+                          </Badge>
                         </div>
                       </figure>
                       <div className="p-5 flex flex-col gap-2">
-                        <h3 className="font-heading text-lg text-navy">{property.title}</h3>
-                        <p className="text-sm text-gray line-clamp-2">{property.description}</p>
-                      <p className="text-xs text-gray flex items-center gap-1">
-                        <MapPin className="w-3.5 h-3.5" />
+                        <h3 className="font-heading text-lg text-navy">
+                          {property.title}
+                        </h3>
+                        <p className="text-sm text-gray line-clamp-2">
+                          {property.description}
+                        </p>
+                        <p className="text-xs text-gray flex items-center gap-1">
+                          <MapPin className="w-3.5 h-3.5" />
                           {property.location}
                         </p>
                         <div className="flex items-center gap-4 text-xs text-gray mt-1">
@@ -81,7 +93,9 @@ export default function FeaturedProperties() {
                           <span>{property.area} sqft</span>
                         </div>
                         <p className="text-xl font-heading text-gold mt-1">
-                          {property.type === "rent" ? `$${property.price.toLocaleString()}/mo` : `$${property.price.toLocaleString()}`}
+                          {property.type === "rent"
+                            ? `$${property.price.toLocaleString()}/mo`
+                            : `$${property.price.toLocaleString()}`}
                         </p>
                       </div>
                     </div>
