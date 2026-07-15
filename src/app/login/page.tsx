@@ -1,11 +1,21 @@
 "use client";
 
-import { useState, FormEvent } from "react";
-import { useRouter } from "next/navigation";
+import { useState, FormEvent, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
+
+function RegistrationSuccessMessage() {
+  const searchParams = useSearchParams();
+  if (searchParams.get("registered") !== "true") return null;
+  return (
+    <div className="alert alert-success mb-4 rounded-field text-sm">
+      <span>Account created successfully! Please sign in.</span>
+    </div>
+  );
+}
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -56,6 +66,10 @@ export default function LoginPage() {
             <Link href="/" className="text-3xl font-heading text-navy">DreamNest</Link>
             <p className="text-gray mt-2">Welcome back</p>
           </div>
+
+          <Suspense fallback={null}>
+            <RegistrationSuccessMessage />
+          </Suspense>
 
           {error && (
             <div className="alert alert-error mb-4 rounded-field text-sm">

@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { Menu, X } from "lucide-react";
 import Button from "@/components/ui/Button";
+import UserDropdown from "./UserDropdown";
 
 const navLinks = {
   public: [
@@ -39,7 +40,10 @@ export default function Navbar() {
     <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-gray-light">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
-          <Link href="/" className="text-2xl md:text-3xl font-heading text-navy tracking-tight">
+          <Link
+            href="/"
+            className="text-2xl md:text-3xl font-heading text-navy tracking-tight"
+          >
             Dream<span className="text-gold">Nest</span>
           </Link>
 
@@ -67,22 +71,18 @@ export default function Navbar() {
 
           <div className="hidden md:flex items-center gap-3">
             {user ? (
-              <>
-                <span className="text-sm text-gray">Hello, <span className="text-gold font-medium">{user.name}</span></span>
-                <button
-                  onClick={logout}
-                  className="px-4 py-1.5 text-sm font-medium text-navy bg-transparent border border-gold/40 hover:bg-gold hover:text-navy hover:border-gold rounded-field transition-all duration-300 cursor-pointer"
-                >
-                  Logout
-                </button>
-              </>
+              <UserDropdown />
             ) : (
               <>
                 <Link href="/login">
-                  <Button variant="ghost" size="sm">Sign In</Button>
+                  <Button variant="ghost" size="sm">
+                    Sign In
+                  </Button>
                 </Link>
                 <Link href="/register">
-                  <Button variant="primary" size="sm">Sign Up</Button>
+                  <Button variant="primary" size="sm">
+                    Sign Up
+                  </Button>
                 </Link>
               </>
             )}
@@ -93,7 +93,11 @@ export default function Navbar() {
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
           >
-            {menuOpen ? <X className="w-6 h-6 text-navy" /> : <Menu className="w-6 h-6 text-navy" />}
+            {menuOpen ? (
+              <X className="w-6 h-6 text-navy" />
+            ) : (
+              <Menu className="w-6 h-6 text-navy" />
+            )}
           </button>
         </div>
       </div>
@@ -120,19 +124,71 @@ export default function Navbar() {
             })}
             <hr className="my-2 border-gray-light" />
             {user ? (
-              <button
-                onClick={() => { logout(); setMenuOpen(false); }}
-                className="block w-full text-left px-4 py-2 text-sm font-medium text-navy bg-transparent border border-gold/40 hover:bg-gold hover:text-navy rounded-field transition-all duration-300"
-              >
-                Logout
-              </button>
+              <>
+                <div className="px-4 py-3 border-b border-gray-light">
+                  <p className="text-sm font-medium text-navy">{user.name}</p>
+                  <p className="text-xs text-gray">{user.email}</p>
+                  <p className="text-xs text-gray mt-1.5">
+                    {" "}
+                    Logged in as -
+                    <span
+                      className={`inline-block text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full ${
+                        user.role === "admin"
+                          ? "bg-gold/20 text-gold"
+                          : "bg-navy/10 text-navy"
+                      }`}
+                    >
+                      {" "}
+                      {user.role}
+                    </span>
+                  </p>
+                </div>
+                <Link
+                  href="/profile"
+                  onClick={() => setMenuOpen(false)}
+                  className="block px-4 py-2 text-sm font-medium text-navy hover:bg-base-200 rounded-field"
+                >
+                  My Profile
+                </Link>
+                {user.role === "admin" && (
+                  <Link
+                    href="/admin"
+                    onClick={() => setMenuOpen(false)}
+                    className="block px-4 py-2 text-sm font-medium text-gold hover:bg-base-200 rounded-field"
+                  >
+                    Admin Dashboard
+                  </Link>
+                )}
+                <hr className="my-2 border-gray-light" />
+                <button
+                  onClick={() => {
+                    logout();
+                    setMenuOpen(false);
+                  }}
+                  className="block w-full text-left px-4 py-2 text-sm font-medium text-error bg-transparent border border-error/40 hover:bg-error hover:text-white rounded-field transition-all duration-300"
+                >
+                  Logout
+                </button>
+              </>
             ) : (
               <div className="flex gap-2 px-4 pt-2">
-                <Link href="/login" onClick={() => setMenuOpen(false)} className="flex-1">
-                  <Button variant="outline" size="sm" className="w-full">Sign In</Button>
+                <Link
+                  href="/login"
+                  onClick={() => setMenuOpen(false)}
+                  className="flex-1"
+                >
+                  <Button variant="outline" size="sm" className="w-full">
+                    Sign In
+                  </Button>
                 </Link>
-                <Link href="/register" onClick={() => setMenuOpen(false)} className="flex-1">
-                  <Button variant="primary" size="sm" className="w-full">Sign Up</Button>
+                <Link
+                  href="/register"
+                  onClick={() => setMenuOpen(false)}
+                  className="flex-1"
+                >
+                  <Button variant="primary" size="sm" className="w-full">
+                    Sign Up
+                  </Button>
                 </Link>
               </div>
             )}
